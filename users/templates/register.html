@@ -1,0 +1,20 @@
+{% extends 'base_page.html' %} {% load static %} {% block register %}
+<main>
+    <div class="bg-log-page">
+      <form action="" method="POST" class="log-form">
+        {% csrf_token %}
+        <p class="form-header">Регистрация</p>
+        {% for field in form %}
+        <label for="{{field.auto_id}}" class="form-lbl">{{field.label}}</label>
+        {{field}}
+        {% if field.name in 'password password_repeat' %}
+          <button type="button" class="{{field.auto_id}}"><img src="{% static 'img/dont_show_pass.png' %}"></button>
+        {% endif %}
+        {{field.errors}}
+        {% endfor %}
+        <input type="submit" value="Войти" class="form-submit-inp" />
+        <a href="{% url 'login' %}" class="reg-option">Вернуться</a>
+      </form>
+    </div>
+  </main>
+{% endblock register %}

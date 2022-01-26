@@ -1,0 +1,60 @@
+{% extends 'base_page.html' %} {% block content %}
+<main>
+  <div class="prod-container-page">
+    <div class="add-prod">
+      <a href="{% url 'logout' %}">Выйти</a>
+        <form action="" method="get" class="prod-search">
+          <div class="lbl-inf">
+            <label for="search">Искать:</label>
+            <input list="searchBy" type="search" name="search" id="search" class="form-inp" autocomplete="off"/>
+            <datalist id="searchBy">
+              <option value="Искать по алфавиту">
+              <option value="От минимлаьной цены вверх">
+              <option value="От максимальной цены вниз">
+            </datalist>
+          </div>
+          <input type="submit" name="submit" id="submit" class="prod-search-submit"/>
+        </form>
+      <a href="{% url 'add-product' %}">Добавить товар</a>
+    </div>
+    <div class="prod-info">
+      <p class="prod-name-col bot-line">Перечень товаров</p>
+      <p class="prod-actions-cols bot-line">Стоимость</p>
+      <p class="prod-actions-cols bot-line">Дата Изменения</p>
+      <p class="prod-actions-cols bot-line">Управление</p>
+      {% for car in page_obj %}
+      <p class="prod-name bot-line">
+        <a href="{% url 'single_product' car.id %}">{{car.name}}</a>
+      </p>
+      <p class="prod-price bot-line">{{car.price}} $</p>
+      <p class="prod-date-changed bot-line">{{car.date_changed}}</p>
+      <div class="prod-edit-delete-container">
+        {% if request.user == car.owner %}
+        <p class="bot-line">
+          <a href="{% url 'edit-product' car.id %}">Ред.</a>
+        </p>
+        <p class="bot-line">
+          <a href="{% url 'remove-product' car.id %}">Удалить</a>
+        </p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% if page_obj %}
+    <div class="pagination">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Prev</a>
+        {% endif %}
+
+        <span class="current"> Page {{ page_obj.number }} </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+      </span>
+    </div>
+    {% endif %}
+  </div>
+</main>
+{% endblock content %}

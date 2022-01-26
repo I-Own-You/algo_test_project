@@ -1,0 +1,13 @@
+{% extends 'base_page.html' %} {% block content %}
+
+<main>
+  <div class="bg-remove-product">
+    <p>Вы уверены что хотите удалить машину {{car.name}} ?</p>
+    <form action="" method="GET">
+      {% csrf_token %}
+      <input type="submit" name="submit" id="submit" />
+    </form>
+  </div>
+</main>
+
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends 'base_page.html' %} {% load static %} {% block login %}
+<main>
+  <div class="bg-log-page">
+    <form action="" method="POST" class="log-form">
+      {% csrf_token %}
+      <p class="form-header">Вход</p>
+      <label for="email" class="form-lbl">E-mail</label>
+      <input type="email" name="email" id="email" placeholder="Введите E-mail" class="form-inp" />
+      <label for="password" class="form-lbl">Пароль</label>
+      <input type="password" name="password" id="password" placeholder="Введите Пароль" class="form-inp" />
+      <button type="button" class="password"><img src="{% static 'img/dont_show_pass.png' %}"></button>
+      {% if messages %}
+        {% for message in messages %}
+          <p{% if message.tags %} class="{{ message.tags }}-msg"{% endif %}>{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+      <input type="submit" value="Войти" class="form-submit-inp" />
+      <a href="{% url 'register' %}" class="reg-option">Зарегистрироваться</a>
+    </form>
+  </div>
+</main>
+{% endblock login %}

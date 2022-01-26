@@ -1,0 +1,27 @@
+{% extends 'base_page.html' %} {% block content %}
+
+<main>
+  <div class="bg-single-prod-page">
+    <div class="sing-prod-inf">
+      <p class="back-page"><a href="{% url 'products' %}">Вернуться</a></p>
+      <div class="img-container">
+        {% for image in images %}
+        <img
+          src="{{MEDIA_URL}}{{image.images}}"
+          alt="car image"
+          width="200px"
+          height="200px"
+        />
+        {% endfor %}
+      </div>
+      <div class="prod-name-desc">
+        <p class="prod-name-s">{{car.name}}</p>
+        <p class="prod-description-s">{{car.description}}</p>
+      </div>
+      <p class="prod-price-s">Стоимость: {{car.price}} $</p>
+      <p class="make-transact"><a href="">Беру!!!!</a></p>
+    </div>
+  </div>
+</main>
+
+{% endblock content %}

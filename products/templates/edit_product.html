@@ -1,0 +1,30 @@
+{% extends 'base_page.html' %} {% block content %}
+
+<main>
+  <div class="bg-add-product">
+    <form action="" method="POST" enctype="multipart/form-data" class="log-form">
+      {% csrf_token %}
+      {% for field in form %}
+        <label for="{{field.auto_id}}" class="form-lbl">{{field.label}}</label>
+        {% if field.label == 'Изображение' %}
+        <img src="{{car.image.url}}" alt="car image" width="200px" height="200px">
+        {% endif %}
+        {{field}} {{field.errors}}
+      {% endfor %}
+      {% for form in form_images.forms %}
+          {% for field in form.visible_fields %}
+            {% if forloop.first %}
+              {% for hidden in form.hidden_fields %}
+                {{ hidden }}
+              {% endfor %}
+              {{ field.errors.as_ul }}
+              {{ field.label_tag }} {{ field }} <br>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      <input type="submit" name="submit" id="submit" class="form-submit-inp">
+    </form>
+  </div>
+</main>
+
+{% endblock content %}
